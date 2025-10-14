@@ -29,6 +29,26 @@
             box-sizing: border-box;
         }
 
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #4b0082, #6a0dad, #000080);
+            border-radius: 10px;
+            border: 2px solid rgba(25, 25, 112, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #6a0dad, #9370db, #4b0082);
+        }
+
         /* WebGL Canvas */
         #webgl-canvas {
             position: fixed;
@@ -99,6 +119,7 @@
             min-height: 100vh;
             line-height: 1.6;
             position: relative;
+            overflow-x: hidden;
         }
         
         .container {
@@ -152,6 +173,73 @@
             animation-duration: 30s;
             animation-delay: 10s;
         }
+
+        /* Новые элементы декора - лунные блики */
+        .moon-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.1) 0%, rgba(147, 112, 219, 0) 70%);
+            filter: blur(20px);
+            z-index: -1;
+            animation: moonFloat 30s infinite alternate ease-in-out;
+        }
+
+        .moon-glow:nth-child(1) {
+            top: 10%;
+            right: 10%;
+        }
+
+        .moon-glow:nth-child(2) {
+            bottom: 15%;
+            left: 5%;
+            animation-delay: 5s;
+            width: 200px;
+            height: 200px;
+        }
+
+        @keyframes moonFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 20px) scale(1.1); }
+        }
+
+        /* Тени и разрывы */
+        .shadow-tear {
+            position: fixed;
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(45deg, transparent 30%, rgba(106, 13, 173, 0.1) 50%, transparent 70%);
+            z-index: -1;
+            filter: blur(5px);
+            animation: shadowDrift 40s infinite linear;
+        }
+
+        .shadow-tear:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .shadow-tear:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+
+        .shadow-tear:nth-child(3) {
+            bottom: 30%;
+            left: 25%;
+            animation-delay: 20s;
+        }
+
+        @keyframes shadowDrift {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translate(50px, 30px) rotate(90deg); opacity: 0.5; }
+            50% { transform: translate(100px, 10px) rotate(180deg); opacity: 0.2; }
+            75% { transform: translate(30px, 80px) rotate(270deg); opacity: 0.4; }
+            100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
+        }
         
         @keyframes float {
             0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
@@ -194,6 +282,25 @@
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .logo:hover::before {
+            left: 100%;
         }
         
         .logo:hover {
@@ -211,6 +318,25 @@
             font-size: 1.5em;
             animation: pulse 3s infinite;
             border: 2px solid #9370db;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 5s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
         }
         
         @keyframes pulse {
@@ -236,6 +362,23 @@
             gap: 8px;
             font-weight: 500;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
         }
         
         .nav-link:hover {
@@ -277,6 +420,7 @@
         .hero {
             text-align: center;
             padding: 100px 0 80px;
+            position: relative;
         }
         
         .hero h1 {
@@ -287,6 +431,19 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 30px rgba(106, 13, 173, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+            border-radius: 50%;
         }
         
         .hero p {
@@ -294,6 +451,11 @@
             color: var(--light);
             max-width: 700px;
             margin: 0 auto 40px;
+            position: relative;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(106, 13, 173, 0.05);
+            border: 1px solid rgba(106, 13, 173, 0.1);
         }
         
         /* Символ Мрака */
@@ -313,6 +475,7 @@
             margin: 0 auto;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .symbol-container::before {
@@ -338,6 +501,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: symbolPulse 4s infinite;
+            filter: drop-shadow(0 0 10px rgba(106, 13, 173, 0.5));
         }
         
         @keyframes symbolPulse {
@@ -378,6 +542,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .feature-card::before {
@@ -414,6 +579,20 @@
             font-size: 2em;
             animation: pulse 3s infinite;
             border: 2px solid #9370db;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 5s infinite linear;
         }
         
         .feature-card h3 {
@@ -476,6 +655,21 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+            border-radius: 50%;
         }
         
         /* Сетка команды */
@@ -496,6 +690,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .member-card::before {
@@ -532,6 +727,20 @@
             font-size: 2em;
             border: 2px solid #9370db;
             animation: pulse 3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 5s infinite linear;
         }
         
         .member-rank {
@@ -589,6 +798,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .rule-card::before {
@@ -625,6 +835,20 @@
             font-size: 1.8em;
             animation: pulse 3s infinite;
             border: 2px solid #9370db;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rule-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 5s infinite linear;
         }
         
         .rule-title {
@@ -663,6 +887,17 @@
             padding-top: 40px;
             border-top: 1px solid rgba(106, 13, 173, 0.3);
             color: var(--light);
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
         }
         
         /* Адаптивность */
@@ -778,6 +1013,19 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+            border-radius: 50%;
         }
 
         /* Стили для системы материи */
@@ -829,6 +1077,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .rank-card:hover::before {
+            left: 100%;
         }
 
         .rank-card:hover {
@@ -873,11 +1138,81 @@
             border: 1px solid rgba(106, 13, 173, 0.3);
             text-align: center;
             color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progression-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .progression-note:hover::before {
+            left: 100%;
         }
 
         .progression-note h4 {
             color: #9370db;
             margin-bottom: 10px;
+        }
+
+        /* Новые декоративные элементы */
+        .dark-ornament {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            z-index: -1;
+            background: radial-gradient(circle, #9370db 0%, transparent 70%);
+            filter: blur(10px);
+        }
+
+        .dark-ornament:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation: float 25s infinite linear;
+        }
+
+        .dark-ornament:nth-child(2) {
+            bottom: 15%;
+            right: 10%;
+            animation: float 30s infinite linear reverse;
+        }
+
+        /* Анимированные границы для секций */
+        .section-border {
+            position: relative;
+        }
+
+        .section-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+        }
+
+        .section-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+        }
+
+        /* Эффект параллакса для некоторых элементов */
+        .parallax-element {
+            transform: translateY(calc(var(--scroll) * -0.5px));
         }
     </style>
 </head>
@@ -890,6 +1225,13 @@
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
+        <div class="moon-glow"></div>
+        <div class="moon-glow"></div>
+        <div class="shadow-tear"></div>
+        <div class="shadow-tear"></div>
+        <div class="shadow-tear"></div>
+        <div class="dark-ornament"></div>
+        <div class="dark-ornament"></div>
     </div>
     
     <!-- Навигация -->
@@ -920,7 +1262,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+</nav>
 
     <div class="container">
         <!-- Главная страница -->
@@ -1327,7 +1669,7 @@
     </div>
 
     <div class="footer">
-        <p>© 2025 Отряд Мрак | s5.yufu.su:27017</p>
+        <p>© 2025А Отряд Мрак | s5.yufu.su:27017</p>
         <p style="margin-top: 10px; font-size: 0.9em;">Тень • Сила • Тайна</p>
     </div>
 
@@ -1418,6 +1760,16 @@
                 el.style.transform = 'translateY(30px)';
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
+            });
+
+            // Добавляем эффект параллакса для некоторых элементов
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.parallax-element');
+                
+                parallaxElements.forEach(element => {
+                    element.style.setProperty('--scroll', scrolled);
+                });
             });
         });
     </script>
@@ -1674,4 +2026,3 @@
     </script>
 </body>
 </html>
-
