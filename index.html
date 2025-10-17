@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отряд Мрак</title>
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
-
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -31,22 +30,20 @@
 
         /* Кастомный скроллбар */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: rgba(10, 10, 10, 0.8);
-            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #4b0082, #6a0dad, #000080);
-            border-radius: 10px;
-            border: 2px solid rgba(25, 25, 112, 0.5);
+            background: linear-gradient(45deg, #4b0082, #6a0dad);
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #6a0dad, #9370db, #4b0082);
+            background: linear-gradient(45deg, #6a0dad, #9370db);
         }
 
         /* WebGL Canvas */
@@ -60,76 +57,6 @@
             display: block;
         }
 
-        .server-info {
-            background: rgba(75, 0, 130, 0.3);
-            padding: 12px 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(106, 13, 173, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: monospace;
-            font-size: 1.1em;
-            margin-top: 20px;
-            color: #e0e0e0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .server-info:hover {
-            background: rgba(75, 0, 130, 0.5);
-            border-color: rgba(147, 112, 219, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
-        }
-
-        .server-info.copied {
-            background: rgba(0, 128, 0, 0.3);
-            border-color: rgba(0, 255, 0, 0.4);
-        }
-
-        .server-info.copied::after {
-            content: '✓ Скопировано!';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 128, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            animation: fadeOut 2s ease-in-out forwards;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--deep-blue) 100%);
-            color: var(--white);
-            min-height: 100vh;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
         /* Анимированный фон */
         .bg-animation {
             position: fixed;
@@ -174,7 +101,6 @@
             animation-delay: 10s;
         }
 
-        /* Новые элементы декора - лунные блики */
         .moon-glow {
             position: fixed;
             width: 300px;
@@ -199,12 +125,6 @@
             height: 200px;
         }
 
-        @keyframes moonFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 20px) scale(1.1); }
-        }
-
-        /* Тени и разрывы */
         .shadow-tear {
             position: fixed;
             width: 100px;
@@ -248,125 +168,111 @@
             75% { transform: translate(10px, 40px) rotate(270deg); opacity: 0.4; }
             100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
         }
-        
-        /* Навигация */
-        .navbar {
-            background: rgba(25, 25, 112, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(106, 13, 173, 0.3);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+
+        @keyframes moonFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 20px) scale(1.1); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--deep-blue) 100%);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
         
-        .nav-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.8em;
-            font-weight: 700;
-            background: linear-gradient(45deg, #9370db, #6a0dad);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
-            padding: 5px 10px;
-            border-radius: 10px;
+            z-index: 1;
         }
-        
-        .logo::before {
-            content: '';
-            position: absolute;
+
+        /* НОВАЯ НАВИГАЦИЯ - Боковая панель */
+        .dark-sidebar {
+            position: fixed;
+            left: 0;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
-            transition: left 0.7s ease;
+            width: 80px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(106, 13, 173, 0.3);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
         }
-        
-        .logo:hover::before {
-            left: 100%;
+
+        .dark-sidebar:hover {
+            width: 250px;
+            box-shadow: 10px 0 30px rgba(106, 13, 173, 0.3);
         }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .logo-icon {
+
+        .sidebar-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #4b0082, #6a0dad, #000080);
-            border-radius: 50%;
+            background: linear-gradient(45deg, #4b0082, #6a0dad);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5em;
-            animation: pulse 3s infinite;
-            border: 2px solid #9370db;
+            margin-bottom: 40px;
+            border: 2px solid rgba(147, 112, 219, 0.5);
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
-        
-        .logo-icon::after {
+
+        .sidebar-logo::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
             transform: rotate(30deg);
-            animation: shine 5s infinite linear;
+            animation: shine 6s infinite linear;
         }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 112, 219, 0.3); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(147, 112, 219, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 112, 219, 0); }
-        }
-        
-        .nav-links {
+
+        .sidebar-nav {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            padding: 0 15px;
         }
-        
-        .nav-link {
-            color: var(--light);
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+
+        .nav-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            cursor: pointer;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            cursor: pointer;
         }
-        
-        .nav-link::before {
+
+        .nav-item::before {
             content: '';
             position: absolute;
             top: 0;
@@ -374,27 +280,58 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
-            transition: left 0.5s ease;
+            transition: left 0.6s ease;
         }
-        
-        .nav-link:hover::before {
+
+        .nav-item:hover::before {
             left: 100%;
         }
-        
-        .nav-link:hover {
+
+        .nav-item:hover {
             background: rgba(106, 13, 173, 0.2);
-            border-color: rgba(106, 13, 173, 0.5);
-            color: var(--white);
-            transform: translateY(-2px);
+            border-color: rgba(147, 112, 219, 0.4);
+            transform: translateX(5px);
         }
-        
-        .nav-link.active {
+
+        .nav-item.active {
             background: rgba(106, 13, 173, 0.3);
-            border-color: #9370db;
-            color: var(--white);
-            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
+            border-color: rgba(147, 112, 219, 0.6);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
         }
-        
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .dark-sidebar:hover .nav-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Главный контент с отступом под боковую панель */
+        .main-content {
+            margin-left: 80px;
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        .dark-sidebar:hover ~ .main-content {
+            margin-left: 250px;
+        }
+
         /* Секции */
         .section {
             display: none;
@@ -415,7 +352,7 @@
                 transform: translateY(0);
             }
         }
-        
+
         /* Герой секция */
         .hero {
             text-align: center;
@@ -457,7 +394,7 @@
             background: rgba(106, 13, 173, 0.05);
             border: 1px solid rgba(106, 13, 173, 0.1);
         }
-        
+
         /* Символ Мрака */
         .symbol-section {
             text-align: center;
@@ -476,6 +413,12 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+        
+        .symbol-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(75, 0, 130, 0.4);
         }
         
         .symbol-container::before {
@@ -523,7 +466,7 @@
             line-height: 1.7;
             font-size: 1.1em;
         }
-        
+
         /* Сетка функций */
         .features-grid {
             display: grid;
@@ -593,6 +536,12 @@
             background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
             transform: rotate(30deg);
             animation: shine 5s infinite linear;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 112, 219, 0.3); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(147, 112, 219, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 112, 219, 0); }
         }
         
         .feature-card h3 {
@@ -899,79 +848,58 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, #9370db, transparent);
         }
-        
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            
-            .nav-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .rules-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .members-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
-            }
-            
-            .feature-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 1.8em;
-            }
-            
-            .symbol-container {
-                padding: 30px 20px;
-            }
-            
-            .symbol-icon {
-                font-size: 3em;
-            }
+
+        /* Server Info */
+        .server-info {
+            background: rgba(75, 0, 130, 0.3);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(106, 13, 173, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: monospace;
+            font-size: 1.1em;
+            margin-top: 20px;
+            color: #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        
-        @media (max-width: 480px) {
-            .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9em;
-            }
-            
-            .hero {
-                padding: 60px 0 40px;
-            }
-            
-            .hero h1 {
-                font-size: 2em;
-            }
-            
-            .section-title {
-                font-size: 2em;
-            }
-            
-            .member-card {
-                padding: 25px 20px;
-            }
-            
-            .symbol-container {
-                padding: 25px 15px;
-            }
+
+        .server-info:hover {
+            background: rgba(75, 0, 130, 0.5);
+            border-color: rgba(147, 112, 219, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+        }
+
+        .server-info.copied {
+            background: rgba(0, 128, 0, 0.3);
+            border-color: rgba(0, 255, 0, 0.4);
+        }
+
+        .server-info.copied::after {
+            content: '✓ Скопировано!';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 128, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: fadeOut 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         /* Категории команды */
@@ -1162,57 +1090,91 @@
             margin-bottom: 10px;
         }
 
-        /* Новые декоративные элементы */
-        .dark-ornament {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            opacity: 0.1;
-            z-index: -1;
-            background: radial-gradient(circle, #9370db 0%, transparent 70%);
-            filter: blur(10px);
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .dark-sidebar {
+                width: 60px;
+            }
+            
+            .dark-sidebar:hover {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+            
+            .dark-sidebar:hover ~ .main-content {
+                margin-left: 200px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8em;
+            }
+            
+            .symbol-container {
+                padding: 30px 20px;
+            }
+            
+            .symbol-icon {
+                font-size: 3em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
         }
-
-        .dark-ornament:nth-child(1) {
-            top: 10%;
-            left: 5%;
-            animation: float 25s infinite linear;
-        }
-
-        .dark-ornament:nth-child(2) {
-            bottom: 15%;
-            right: 10%;
-            animation: float 30s infinite linear reverse;
-        }
-
-        /* Анимированные границы для секций */
-        .section-border {
-            position: relative;
-        }
-
-        .section-border::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #9370db, transparent);
-        }
-
-        .section-border::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #9370db, transparent);
-        }
-
-        /* Эффект параллакса для некоторых элементов */
-        .parallax-element {
-            transform: translateY(calc(var(--scroll) * -0.5px));
+        
+        @media (max-width: 480px) {
+            .dark-sidebar {
+                width: 50px;
+            }
+            
+            .dark-sidebar:hover {
+                width: 180px;
+            }
+            
+            .main-content {
+                margin-left: 50px;
+            }
+            
+            .hero {
+                padding: 60px 0 40px;
+            }
+            
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .member-card {
+                padding: 25px 20px;
+            }
+            
+            .symbol-container {
+                padding: 25px 15px;
+            }
         }
     </style>
 </head>
@@ -1230,447 +1192,462 @@
         <div class="shadow-tear"></div>
         <div class="shadow-tear"></div>
         <div class="shadow-tear"></div>
-        <div class="dark-ornament"></div>
-        <div class="dark-ornament"></div>
     </div>
     
-    <!-- Навигация -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo" onclick="showSection('main')">
-                <div class="logo-icon">
-                    <i class="fas fa-moon"></i>
+    <!-- НОВАЯ БОКОВАЯ ПАНЕЛЬ НАВИГАЦИИ -->
+    <nav class="dark-sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-moon"></i>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-item active" onclick="showSection('main')">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
                 </div>
-                ОТРЯД МРАК
+                <div class="nav-text">Главная</div>
             </div>
             
-            <div class="nav-links">
-                <div class="nav-link active" onclick="showSection('main')">
-                    <i class="fas fa-home"></i> Главная
+            <div class="nav-item" onclick="showSection('symbol')">
+                <div class="nav-icon">
+                    <i class="fas fa-ankh"></i>
                 </div>
-                <div class="nav-link" onclick="showSection('symbol')">
-                    <i class="fas fa-ankh"></i> Символ Мрака
+                <div class="nav-text">Символ Мрака</div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('rules')">
+                <div class="nav-icon">
+                    <i class="fas fa-scroll"></i>
                 </div>
-                <div class="nav-link" onclick="showSection('rules')">
-                    <i class="fas fa-book"></i> Устав
+                <div class="nav-text">Устав Братства</div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('team')">
+                <div class="nav-icon">
+                    <i class="fas fa-users"></i>
                 </div>
-                <div class="nav-link" onclick="showSection('team')">
-                    <i class="fas fa-users"></i> Состав
+                <div class="nav-text">Состав Отряда</div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('progression')">
+                <div class="nav-icon">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <div class="nav-link" onclick="showSection('progression')">
-                    <i class="fas fa-chart-line"></i> Система повышения
-                </div>
+                <div class="nav-text">Система Повышения</div>
             </div>
         </div>
-</nav>
+    </nav>
 
-    <div class="container">
-        <!-- Главная страница -->
-        <div id="main" class="section active">
-            <section class="hero">
-                <h1>ОТРЯД МРАК</h1>
-                <p>Тайное братство, где тьма становится силой, а молчание - оружием. Мы - тени, что охраняют равновесие между светом и тьмой.</p>
-                
-                <div class="server-info" id="server-ip" onclick="copyServerIP()">
-                    <i class="fas fa-server"></i>
-                    <span>s5.yufu.su:27017</span>
-                </div>
-            </section>
+    <!-- Основной контент -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Главная страница -->
+            <div id="main" class="section active">
+                <section class="hero">
+                    <h1>ОТРЯД МРАК</h1>
+                    <p>Тайное братство, где тьма становится силой, а молчание - оружием. Мы - тени, что охраняют равновесие между светом и тьмой.</p>
+                    
+                    <div class="server-info" id="server-ip" onclick="copyServerIP()">
+                        <i class="fas fa-server"></i>
+                        <span>s5.yufu.su:27017</span>
+                    </div>
+                </section>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-ankh"></i>
-                    </div>
-                    <h3>Символ Мрака</h3>
-                    <p>Узнай о древнем символе, что объединяет всех членов нашего братства. Тайный знак, несущий силу и защиту.</p>
-                    <div class="feature-button" onclick="showSection('symbol')">
-                        Узнать о символе
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Устав Братства</h3>
-                    <p>Законы тьмы, которые оберегают наше братство. Дисциплина и порядок - основа силы Мрака.</p>
-                    <div class="feature-button" onclick="showSection('rules')">
-                        Изучить устав
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Иерархия Тени</h3>
-                    <p>От Жнеца Мрака до Мрачной Жницы - каждый находит свое место в нашей иерархии, основанной на силе и преданности.</p>
-                    <div class="feature-button" onclick="showSection('team')">
-                        Узнать состав
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Система Повышения</h3>
-                    <p>Путь от Демона к Цукумону через накопление материи. Узнай как повысить свой ранг в братстве.</p>
-                    <div class="feature-button" onclick="showSection('progression')">
-                        Узнать о повышении
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Символ Мрака -->
-        <div id="symbol" class="section">
-            <div class="page-header">
-                <h1>СИМВОЛ МРАКА</h1>
-                <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
-                    Древний знак, объединяющий братство тьмы
-                </p>
-            </div>
-
-            <div class="symbol-section">
-                <div class="symbol-container">
-                    <div class="symbol-icon">
-                        <i class="fas fa-ankh"></i>
-                    </div>
-                    <h2 class="symbol-title">АНКХ ТЬМЫ</h2>
-                    <div class="symbol-description">
-                        <p>Наш символ - древний Анкх, переплетенный с лунным серпом. Он олицетворяет вечную жизнь во тьме, мудрость ночи и силу, что проистекает из глубин мироздания.</p>
-                        <p style="margin-top: 15px;">Анкх Тьмы объединяет три начала: </p>
-                        <ul style="text-align: left; margin-top: 15px; color: var(--light);">
-                            <li><strong>Верхняя петля</strong> - вечность и бесконечность мрака</li>
-                            <li><strong>Перекладина</strong> - равновесие между светом и тьмой</li>
-                            <li><strong>Вертикальная ось</strong> - связь между мирами</li>
-                        </ul>
-                        <p style="margin-top: 20px; font-style: italic;">"В темноте мы обретаем силу, в молчании - мудрость, в единстве - бессмертие"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Устав -->
-        <div id="rules" class="section">
-            <div class="page-header">
-                <h1>УСТАВ ОТРЯДА МРАК</h1>
-                <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
-                    Законы тьмы, которые оберегают наше братство
-                </p>
-            </div>
-
-            <!-- Правила -->
-            <div class="rules-grid">
-                <!-- Обязанности -->
-                <div class="rule-card">
-                    <div class="rule-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="rule-title">Кодекс Чести</h3>
-                    <ul class="rule-list">
-                        <li>Храни тайны братства Мрака</li>
-                        <li>Защищай собратьев по тени</li>
-                        <li>Уважай иерархию и старших</li>
-                        <li>Совершенствуй свои навыки</li>
-                        <li>Будь предан идеалам Мрака</li>
-                    </ul>
-                </div>
-                
-                <!-- Запреты -->
-                <div class="rule-card">
-                    <div class="rule-icon"><i class="fas fa-ban"></i></div>
-                    <h3 class="rule-title">Запреты Тьмы</h3>
-                    <ul class="rule-list">
-                        <li>Не раскрывай секреты отряда</li>
-                        <li>Не предавай доверие собратьев</li>
-                        <li>Не действуй вопреки приказам</li>
-                        <li>Не проявляй слабость перед чужими</li>
-                        <li>Не нарушай законы иерархии</li>
-                    </ul>
-                </div>
-                
-                <!-- Ценности -->
-                <div class="rule-card">
-                    <div class="rule-icon"><i class="fas fa-gem"></i></div>
-                    <h3 class="rule-title">Ценности Братства</h3>
-                    <ul class="rule-list">
-                        <li>Сила через единство</li>
-                        <li>Мудрость через молчание</li>
-                        <li>Власть через знание</li>
-                        <li>Защита через тень</li>
-                        <li>Бессмертие через legacy</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Состав -->
-        <div id="team" class="section">
-            <div class="page-header">
-                <h1>СОСТАВ ОТРЯДА МРАК</h1>
-                <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
-                    Иерархия теней, где каждый нашел свое место
-                </p>
-            </div>
-
-            <!-- Структура команды -->
-            <div class="team-structure">
-                <!-- Владелец -->
-                <div class="team-category">
-                    <h2 class="category-title">Владелец Отряда</h2>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-crown"></i></div>
-                            <div class="member-rank">Мрачная Жница Мрака</div>
-                            <div class="member-name">Токи Юри</div>
-                            <div class="member-role">Владелец отряда<br>Верховная правительница</div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-ankh"></i>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Командный состав -->
-                <div class="team-category">
-                    <h2 class="category-title">Командный Состав</h2>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-star"></i></div>
-                            <div class="member-rank">Старший Жнец Мрака</div>
-                            <div class="member-name">Юки Хитсу</div>
-                            <div class="member-role">Командир отряда (CMD)<br>Тактическое руководство</div>
-                        </div>
-                        
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-star"></i></div>
-                            <div class="member-rank">Старший Жнец Мрака</div>
-                            <div class="member-name">Yuika Miorine</div>
-                            <div class="member-role">Заместитель командира (D.CMD)<br>Оперативное управление</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Инструкторы -->
-                <div class="team-category">
-                    <h2 class="category-title">Инструкторы Мрака</h2>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
-                            <div class="member-rank">Инструктор Мрака</div>
-                            <div class="member-name">Ашина Кайдо</div>
-                            <div class="member-role">Главный инструктор<br>Обучение новичков</div>
-                        </div>
-                        
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
-                            <div class="member-rank">Инструктор Мрака</div>
-                            <div class="member-name">Аяро Сота</div>
-                            <div class="member-role">Инструктор<br>Боевая подготовка</div>
-                        </div>
-                        
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
-                            <div class="member-rank">Инструктор Мрака</div>
-                            <div class="member-name">Каге Мидзуно</div>
-                            <div class="member-role">Инструктор<br>Стратегия и тактика</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Боевой состав -->
-                <div class="team-category">
-                    <h2 class="category-title">Жнецы Мрака</h2>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-avatar"><i class="fas fa-moon"></i></div>
-                            <div class="member-rank">Жнец Мрака</div>
-                            <div class="member-name">Акияма Рен</div>
-                            <div class="member-role">Боец<br>Исполнитель приказов</div>
-                        </div>
-                        
-                        <div class="member-card vacant">
-                            <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
-                            <div class="member-rank">Жнец Мрака</div>
-                            <div class="member-name">[Вакантно]</div>
-                            <div class="member-role">Свободная позиция<br>Требуется боец</div>
-                        </div>
-                        
-                        <div class="member-card vacant">
-                            <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
-                            <div class="member-rank">Жнец Мрака</div>
-                            <div class="member-name">[Вакантно]</div>
-                            <div class="member-role">Свободная позиция<br>Требуется боец</div>
-                        </div>
-                        
-                        <div class="member-card vacant">
-                            <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
-                            <div class="member-rank">Жнец Мрака</div>
-                            <div class="member-name">[Вакантно]</div>
-                            <div class="member-role">Свободная позиция<br>Требуется боец</div>
-                        </div>
-                        
-                        <div class="member-card vacant">
-                            <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
-                            <div class="member-rank">Жнец Мрака</div>
-                            <div class="member-name">[Вакантно]</div>
-                            <div class="member-role">Свободная позиция<br>Требуется боец</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Система повышения -->
-        <div id="progression" class="section">
-            <div class="page-header">
-                <h1>СИСТЕМА ПОВЫШЕНИЯ</h1>
-                <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
-                    Путь от Демона к Цукумону через накопление материи
-                </p>
-            </div>
-
-            <div class="features-grid">
-                <!-- Система получения материи -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3>Получение Материи</h3>
-                    <div class="matter-system">
-                        <div class="matter-category">
-                            <h4>Боевые действия</h4>
-                            <ul>
-                                <li>Убийство 1 истребителя ➤ <span class="matter-amount">1 материя</span></li>
-                                <li>Убийство 1 столпа ➤ <span class="matter-amount">2 материи</span></li>
-                                <li>Захват важной точки ➤ <span class="matter-amount">5 материй</span></li>
-                                <li>Захват 2 точек ➤ <span class="matter-amount">2 материи</span></li>
-                                <li>Участие в ГРП ➤ <span class="matter-amount">5 материй</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="matter-category">
-                            <h4>Задания</h4>
-                            <ul>
-                                <li>Инструктора Мрака ➤ <span class="matter-amount">2-5 материй</span></li>
-                                <li>Старшего Жнеца ➤ <span class="matter-amount">5-7 материй</span></li>
-                                <li>Мрачной Жницы ➤ <span class="matter-amount">10 материй</span></li>
-                                <li>Низшей луны ➤ <span class="matter-amount">5 материй</span></li>
-                                <li>Высшей луны ➤ <span class="matter-amount">7 материй</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="matter-category">
-                            <h4>Тренировки и мероприятия</h4>
-                            <ul>
-                                <li>Проведение тренировки ➤ <span class="matter-amount">3 материи</span></li>
-                                <li>Участие в тренировке ➤ <span class="matter-amount">2 материи</span></li>
-                                <li>Участие в мероприятии ➤ <span class="matter-amount">4 материи</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="matter-category">
-                            <h4>Почтения</h4>
-                            <ul>
-                                <li>1 степень ➤ <span class="matter-amount">5+ материй</span></li>
-                                <li>2 степень ➤ <span class="matter-amount">10+ материй</span></li>
-                                <li>3 степень ➤ <span class="matter-amount">15+ материй</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Система повышения -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Путь Повышения</h3>
-                    <div class="progression-system">
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Demon ➤ Keykon</div>
-                                <div class="rank-requirements">КД: 1 день</div>
-                            </div>
-                            <div class="rank-matter">10 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Keykon ➤ Hofuma</div>
-                                <div class="rank-requirements">КД: 2 дня</div>
-                            </div>
-                            <div class="rank-matter">15 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Hofuma ➤ Chisuma</div>
-                                <div class="rank-requirements">КД: 2 дня</div>
-                            </div>
-                            <div class="rank-matter">20 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Chisuma ➤ Chikuma</div>
-                                <div class="rank-requirements">КД: 2 дня</div>
-                            </div>
-                            <div class="rank-matter">25 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Chikuma ➤ Asakuma</div>
-                                <div class="rank-requirements">КД: 2 дня</div>
-                            </div>
-                            <div class="rank-matter">30 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Asakuma ➤ Hobura</div>
-                                <div class="rank-requirements">КД: 3 дня</div>
-                            </div>
-                            <div class="rank-matter">35 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Hobura ➤ Shateigashira</div>
-                                <div class="rank-requirements">КД: 3 дня</div>
-                            </div>
-                            <div class="rank-matter">40 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Shateigashira ➤ Wakagashira</div>
-                                <div class="rank-requirements">КД: 3 дня</div>
-                            </div>
-                            <div class="rank-matter">45 материй</div>
-                        </div>
-                        
-                        <div class="rank-card">
-                            <div class="rank-info">
-                                <div class="rank-name">Wakagashira ➤ Tsukumon</div>
-                                <div class="rank-requirements">КД: 3 дня</div>
-                            </div>
-                            <div class="rank-matter">50 материй</div>
+                        <h3>Символ Мрака</h3>
+                        <p>Узнай о древнем символе, что объединяет всех членов нашего братства. Тайный знак, несущий силу и защиту.</p>
+                        <div class="feature-button" onclick="showSection('symbol')">
+                            Узнать о символе
                         </div>
                     </div>
                     
-                    <div class="progression-note">
-                        <h4>Важная информация</h4>
-                        <p>Учет материи ведется самостоятельно. В отчет о повышении прикладывайте скриншоты ваших действий.</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Материю можно выкупить за Йены у Старших Жнецов Мрака+</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Устав Братства</h3>
+                        <p>Законы тьмы, которые оберегают наше братство. Дисциплина и порядок - основа силы Мрака.</p>
+                        <div class="feature-button" onclick="showSection('rules')">
+                            Изучить устав
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Иерархия Тени</h3>
+                        <p>От Жнеца Мрака до Мрачной Жницы - каждый находит свое место в нашей иерархии, основанной на силе и преданности.</p>
+                        <div class="feature-button" onclick="showSection('team')">
+                            Узнать состав
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Система Повышения</h3>
+                        <p>Путь от Демона к Цукумону через накопление материи. Узнай как повысить свой ранг в братстве.</p>
+                        <div class="feature-button" onclick="showSection('progression')">
+                            Узнать о повышении
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Символ Мрака -->
+            <div id="symbol" class="section">
+                <div class="page-header">
+                    <h1>СИМВОЛ МРАКА</h1>
+                    <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
+                        Древний знак, объединяющий братство тьмы
+                    </p>
+                </div>
+
+                <div class="symbol-section">
+                    <div class="symbol-container">
+                        <div class="symbol-icon">
+                            <i class="fas fa-ankh"></i>
+                        </div>
+                        <h2 class="symbol-title">АНКХ ТЬМЫ</h2>
+                        <div class="symbol-description">
+                            <p>Наш символ - древний Анкх, переплетенный с лунным серпом. Он олицетворяет вечную жизнь во тьме, мудрость ночи и силу, что проистекает из глубин мироздания.</p>
+                            <p style="margin-top: 15px;">Анкх Тьмы объединяет три начала: </p>
+                            <ul style="text-align: left; margin-top: 15px; color: var(--light);">
+                                <li><strong>Верхняя петля</strong> - вечность и бесконечность мрака</li>
+                                <li><strong>Перекладина</strong> - равновесие между светом и тьмой</li>
+                                <li><strong>Вертикальная ось</strong> - связь между мирами</li>
+                            </ul>
+                            <p style="margin-top: 20px; font-style: italic;">"В темноте мы обретаем силу, в молчании - мудрость, в единстве - бессмертие"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Устав -->
+            <div id="rules" class="section">
+                <div class="page-header">
+                    <h1>УСТАВ ОТРЯДА МРАК</h1>
+                    <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
+                        Законы тьмы, которые оберегают наше братство
+                    </p>
+                </div>
+
+                <!-- Правила -->
+                <div class="rules-grid">
+                    <!-- Обязанности -->
+                    <div class="rule-card">
+                        <div class="rule-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="rule-title">Кодекс Чести</h3>
+                        <ul class="rule-list">
+                            <li>Храни тайны братства Мрака</li>
+                            <li>Защищай собратьев по тени</li>
+                            <li>Уважай иерархию и старших</li>
+                            <li>Совершенствуй свои навыки</li>
+                            <li>Будь предан идеалам Мрака</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Запреты -->
+                    <div class="rule-card">
+                        <div class="rule-icon"><i class="fas fa-ban"></i></div>
+                        <h3 class="rule-title">Запреты Тьмы</h3>
+                        <ul class="rule-list">
+                            <li>Не раскрывай секреты отряда</li>
+                            <li>Не предавай доверие собратьев</li>
+                            <li>Не действуй вопреки приказам</li>
+                            <li>Не проявляй слабость перед чужими</li>
+                            <li>Не нарушай законы иерархии</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Ценности -->
+                    <div class="rule-card">
+                        <div class="rule-icon"><i class="fas fa-gem"></i></div>
+                        <h3 class="rule-title">Ценности Братства</h3>
+                        <ul class="rule-list">
+                            <li>Сила через единство</li>
+                            <li>Мудрость через молчание</li>
+                            <li>Власть через знание</li>
+                            <li>Защита через тень</li>
+                            <li>Бессмертие через legacy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Состав -->
+            <div id="team" class="section">
+                <div class="page-header">
+                    <h1>СОСТАВ ОТРЯДА МРАК</h1>
+                    <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
+                        Иерархия теней, где каждый нашел свое место
+                    </p>
+                </div>
+
+                <!-- Структура команды -->
+                <div class="team-structure">
+                    <!-- Владелец -->
+                    <div class="team-category">
+                        <h2 class="category-title">Владелец Отряда</h2>
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-crown"></i></div>
+                                <div class="member-rank">Мрачная Жница Мрака</div>
+                                <div class="member-name">Токи Юри</div>
+                                <div class="member-role">Владелец отряда<br>Верховная правительница</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Командный состав -->
+                    <div class="team-category">
+                        <h2 class="category-title">Командный Состав</h2>
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-star"></i></div>
+                                <div class="member-rank">Старший Жнец Мрака</div>
+                                <div class="member-name">Юки Хитсу</div>
+                                <div class="member-role">Командир отряда (CMD)<br>Тактическое руководство</div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-star"></i></div>
+                                <div class="member-rank">Старший Жнец Мрака</div>
+                                <div class="member-name">Yuika Miorine</div>
+                                <div class="member-role">Заместитель командира (D.CMD)<br>Оперативное управление</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Инструкторы -->
+                    <div class="team-category">
+                        <h2 class="category-title">Инструкторы Мрака</h2>
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                                <div class="member-rank">Инструктор Мрака</div>
+                                <div class="member-name">Ашина Кайдо</div>
+                                <div class="member-role">Главный инструктор<br>Обучение новичков</div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                                <div class="member-rank">Инструктор Мрака</div>
+                                <div class="member-name">Аяро Сота</div>
+                                <div class="member-role">Инструктор<br>Боевая подготовка</div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                                <div class="member-rank">Инструктор Мрака</div>
+                                <div class="member-name">Каге Мидзуно</div>
+                                <div class="member-role">Инструктор<br>Стратегия и тактика</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Боевой состав -->
+                    <div class="team-category">
+                        <h2 class="category-title">Жнецы Мрака</h2>
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-avatar"><i class="fas fa-moon"></i></div>
+                                <div class="member-rank">Жнец Мрака</div>
+                                <div class="member-name">Акияма Рен</div>
+                                <div class="member-role">Боец<br>Исполнитель приказов</div>
+                            </div>
+                            
+                            <div class="member-card vacant">
+                                <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
+                                <div class="member-rank">Жнец Мрака</div>
+                                <div class="member-name">[Вакантно]</div>
+                                <div class="member-role">Свободная позиция<br>Требуется боец</div>
+                            </div>
+                            
+                            <div class="member-card vacant">
+                                <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
+                                <div class="member-rank">Жнец Мрака</div>
+                                <div class="member-name">[Вакантно]</div>
+                                <div class="member-role">Свободная позиция<br>Требуется боец</div>
+                            </div>
+                            
+                            <div class="member-card vacant">
+                                <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
+                                <div class="member-rank">Жнец Мрака</div>
+                                <div class="member-name">[Вакантно]</div>
+                                <div class="member-role">Свободная позиция<br>Требуется боец</div>
+                            </div>
+                            
+                            <div class="member-card vacant">
+                                <div class="member-avatar"><i class="fas fa-user-plus"></i></div>
+                                <div class="member-rank">Жнец Мрака</div>
+                                <div class="member-name">[Вакантно]</div>
+                                <div class="member-role">Свободная позиция<br>Требуется боец</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Система повышения -->
+            <div id="progression" class="section">
+                <div class="page-header">
+                    <h1>СИСТЕМА ПОВЫШЕНИЯ</h1>
+                    <p style="color: var(--light); max-width: 600px; margin: 0 auto; font-size: 1.2em;">
+                        Путь от Демона к Цукумону через накопление материи
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <!-- Система получения материи -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Получение Материи</h3>
+                        <div class="matter-system">
+                            <div class="matter-category">
+                                <h4>Боевые действия</h4>
+                                <ul>
+                                    <li>Убийство 1 истребителя ➤ <span class="matter-amount">1 материя</span></li>
+                                    <li>Убийство 1 столпа ➤ <span class="matter-amount">2 материи</span></li>
+                                    <li>Захват важной точки ➤ <span class="matter-amount">5 материй</span></li>
+                                    <li>Захват 2 точек ➤ <span class="matter-amount">2 материи</span></li>
+                                    <li>Участие в ГРП ➤ <span class="matter-amount">5 материй</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="matter-category">
+                                <h4>Задания</h4>
+                                <ul>
+                                    <li>Инструктора Мрака ➤ <span class="matter-amount">2-5 материй</span></li>
+                                    <li>Старшего Жнеца ➤ <span class="matter-amount">5-7 материй</span></li>
+                                    <li>Мрачной Жницы ➤ <span class="matter-amount">10 материй</span></li>
+                                    <li>Низшей луны ➤ <span class="matter-amount">5 материй</span></li>
+                                    <li>Высшей луны ➤ <span class="matter-amount">7 материй</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="matter-category">
+                                <h4>Тренировки и мероприятия</h4>
+                                <ul>
+                                    <li>Проведение тренировки ➤ <span class="matter-amount">3 материи</span></li>
+                                    <li>Участие в тренировке ➤ <span class="matter-amount">2 материи</span></li>
+                                    <li>Участие в мероприятии ➤ <span class="matter-amount">4 материи</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="matter-category">
+                                <h4>Почтения</h4>
+                                <ul>
+                                    <li>1 степень ➤ <span class="matter-amount">5+ материй</span></li>
+                                    <li>2 степень ➤ <span class="matter-amount">10+ материй</span></li>
+                                    <li>3 степень ➤ <span class="matter-amount">15+ материй</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Система повышения -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Путь Повышения</h3>
+                        <div class="progression-system">
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Demon ➤ Keykon</div>
+                                    <div class="rank-requirements">КД: 1 день</div>
+                                </div>
+                                <div class="rank-matter">10 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Keykon ➤ Hofuma</div>
+                                    <div class="rank-requirements">КД: 2 дня</div>
+                                </div>
+                                <div class="rank-matter">15 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Hofuma ➤ Chisuma</div>
+                                    <div class="rank-requirements">КД: 2 дня</div>
+                                </div>
+                                <div class="rank-matter">20 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Chisuma ➤ Chikuma</div>
+                                    <div class="rank-requirements">КД: 2 дня</div>
+                                </div>
+                                <div class="rank-matter">25 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Chikuma ➤ Asakuma</div>
+                                    <div class="rank-requirements">КД: 2 дня</div>
+                                </div>
+                                <div class="rank-matter">30 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Asakuma ➤ Hobura</div>
+                                    <div class="rank-requirements">КД: 3 дня</div>
+                                </div>
+                                <div class="rank-matter">35 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Hobura ➤ Shateigashira</div>
+                                    <div class="rank-requirements">КД: 3 дня</div>
+                                </div>
+                                <div class="rank-matter">40 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Shateigashira ➤ Wakagashira</div>
+                                    <div class="rank-requirements">КД: 3 дня</div>
+                                </div>
+                                <div class="rank-matter">45 материй</div>
+                            </div>
+                            
+                            <div class="rank-card">
+                                <div class="rank-info">
+                                    <div class="rank-name">Wakagashira ➤ Tsukumon</div>
+                                    <div class="rank-requirements">КД: 3 дня</div>
+                                </div>
+                                <div class="rank-matter">50 материй</div>
+                            </div>
+                        </div>
+                        
+                        <div class="progression-note">
+                            <h4>Важная информация</h4>
+                            <p>Учет материи ведется самостоятельно. В отчет о повышении прикладывайте скриншоты ваших действий.</p>
+                            <p style="margin-top: 10px; font-size: 0.9em;">Материю можно выкупить за Йены у Старших Жнецов Мрака+</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>© 2025 Отряд Мрак | s5.yufu.su:27017</p>
-        <p style="margin-top: 10px; font-size: 0.9em;">Тень • Сила • Тайна</p>
+        <div class="footer">
+            <p>© 2025 Отряд Мрак | s5.yufu.su:27017</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Тень • Сила • Тайна</p>
+        </div>
     </div>
 
     <script>
@@ -1691,12 +1668,12 @@
             }
             
             // Обновляем активную ссылку в навигации
-            document.querySelectorAll('.nav-link').forEach(link => {
+            document.querySelectorAll('.nav-item').forEach(link => {
                 link.classList.remove('active');
             });
             
             // Находим соответствующую ссылку и делаем ее активной
-            const activeLink = document.querySelector(`.nav-link[onclick="showSection('${sectionId}')"]`);
+            const activeLink = document.querySelector(`.nav-item[onclick="showSection('${sectionId}')"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
@@ -1761,22 +1738,9 @@
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
             });
-
-            // Добавляем эффект параллакса для некоторых элементов
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallaxElements = document.querySelectorAll('.parallax-element');
-                
-                parallaxElements.forEach(element => {
-                    element.style.setProperty('--scroll', scrolled);
-                });
-            });
         });
-    </script>
 
-    <!-- WebGL Background Script -->
-    <script>
-        // WebGL Анимированный фон
+        // WebGL Background Script (остается без изменений)
         class WebGLBackground {
             constructor() {
                 this.canvas = document.getElementById('webgl-canvas');
@@ -1793,7 +1757,6 @@
                 this.init();
                 this.animate();
                 
-                // Слежение за мышью для интерактивности
                 document.addEventListener('mousemove', (e) => {
                     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
                     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -1803,14 +1766,8 @@
             init() {
                 this.resize();
                 window.addEventListener('resize', () => this.resize());
-                
-                // Создаем шейдеры
                 this.createShaders();
-                
-                // Создаем буферы
                 this.createBuffers();
-                
-                // Создаем частицы
                 this.createParticles();
             }
 
@@ -1821,7 +1778,6 @@
             }
 
             createShaders() {
-                // Вершинный шейдер
                 const vsSource = `
                     attribute vec2 aPosition;
                     attribute float aSize;
@@ -1836,21 +1792,17 @@
                     varying float vAlpha;
                     
                     void main() {
-                        // Плавное движение частиц
                         float moveX = sin(uTime * 0.5 + aPosition.x) * 0.1;
                         float moveY = cos(uTime * 0.3 + aPosition.y) * 0.1;
                         
-                        // Влияние мыши на частицы
                         float mouseDist = distance(aPosition, uMouse);
                         float mouseInfluence = 0.2 * (1.0 - smoothstep(0.0, 0.5, mouseDist));
                         
                         vec2 position = aPosition + vec2(moveX, moveY) + uMouse * mouseInfluence;
                         
-                        // Преобразование координат
                         vec2 normalized = position / uResolution * 2.0 - 1.0;
                         gl_Position = vec4(normalized.x, normalized.y, 0.0, 1.0);
                         
-                        // Размер частицы с пульсацией
                         float pulse = sin(uTime * 2.0 + aPosition.x + aPosition.y) * 0.2 + 0.8;
                         gl_PointSize = aSize * pulse;
                         
@@ -1859,7 +1811,6 @@
                     }
                 `;
 
-                // Фрагментный шейдер
                 const fsSource = `
                     precision mediump float;
                     
@@ -1867,24 +1818,20 @@
                     varying float vAlpha;
                     
                     void main() {
-                        // Создание круглой частицы
                         float dist = length(gl_PointCoord - vec2(0.5));
                         if (dist > 0.5) {
                             discard;
                         }
                         
-                        // Плавные края
                         float alpha = vAlpha * (1.0 - smoothstep(0.3, 0.5, dist));
                         
                         gl_FragColor = vec4(vColor, alpha);
                     }
                 `;
 
-                // Компиляция шейдеров
                 const vertexShader = this.compileShader(this.gl.VERTEX_SHADER, vsSource);
                 const fragmentShader = this.compileShader(this.gl.FRAGMENT_SHADER, fsSource);
                 
-                // Создание программы
                 this.program = this.gl.createProgram();
                 this.gl.attachShader(this.program, vertexShader);
                 this.gl.attachShader(this.program, fragmentShader);
@@ -1896,7 +1843,6 @@
                 
                 this.gl.useProgram(this.program);
                 
-                // Получение location атрибутов и uniform переменных
                 this.aPosition = this.gl.getAttribLocation(this.program, 'aPosition');
                 this.aSize = this.gl.getAttribLocation(this.program, 'aSize');
                 this.aColor = this.gl.getAttribLocation(this.program, 'aColor');
@@ -1922,7 +1868,6 @@
             }
 
             createBuffers() {
-                // Создание буферов для атрибутов
                 this.positionBuffer = this.gl.createBuffer();
                 this.sizeBuffer = this.gl.createBuffer();
                 this.colorBuffer = this.gl.createBuffer();
@@ -1938,9 +1883,9 @@
                         y: Math.random() * this.canvas.height,
                         size: Math.random() * 2 + 1,
                         color: [
-                            Math.random() * 0.3 + 0.3,  // R (фиолетовый)
-                            Math.random() * 0.2 + 0.2,  // G
-                            Math.random() * 0.4 + 0.4   // B (синий)
+                            Math.random() * 0.3 + 0.3,
+                            Math.random() * 0.2 + 0.2,
+                            Math.random() * 0.4 + 0.4
                         ],
                         alpha: Math.random() * 0.2 + 0.1,
                         speedX: (Math.random() - 0.5) * 0.3,
@@ -1950,12 +1895,10 @@
             }
 
             updateParticles() {
-                // Обновление позиций частиц
                 this.particles.forEach(particle => {
                     particle.x += particle.speedX;
                     particle.y += particle.speedY;
                     
-                    // Возврат частиц на экран при выходе за границы
                     if (particle.x < 0) particle.x = this.canvas.width;
                     if (particle.x > this.canvas.width) particle.x = 0;
                     if (particle.y < 0) particle.y = this.canvas.height;
@@ -1964,16 +1907,13 @@
             }
 
             render() {
-                // Очистка canvas
                 this.gl.clearColor(0.0, 0.0, 0.0, 0.0);
                 this.gl.clear(this.gl.COLOR_BUFFER_BIT);
                 
-                // Обновление uniform переменных
                 this.gl.uniform1f(this.uTime, this.time);
                 this.gl.uniform2f(this.uMouse, this.mouse.x, this.mouse.y);
                 this.gl.uniform2f(this.uResolution, this.canvas.width, this.canvas.height);
                 
-                // Подготовка данных для буферов
                 const positions = [];
                 const sizes = [];
                 const colors = [];
@@ -1986,7 +1926,6 @@
                     alphas.push(particle.alpha);
                 });
                 
-                // Установка буферов
                 this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
                 this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW);
                 this.gl.enableVertexAttribArray(this.aPosition);
@@ -2007,7 +1946,6 @@
                 this.gl.enableVertexAttribArray(this.aAlpha);
                 this.gl.vertexAttribPointer(this.aAlpha, 1, this.gl.FLOAT, false, 0, 0);
                 
-                // Отрисовка частиц
                 this.gl.drawArrays(this.gl.POINTS, 0, this.particles.length);
             }
 
@@ -2019,13 +1957,9 @@
             }
         }
 
-        // Инициализация WebGL фона после загрузки страницы
         window.addEventListener('load', () => {
             new WebGLBackground();
         });
     </script>
 </body>
 </html>
-
-
-
