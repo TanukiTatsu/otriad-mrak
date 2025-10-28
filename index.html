@@ -60,138 +60,30 @@
             display: block;
         }
 
-        /* Анимированный фон */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(147, 112, 219, 0.05);
-            animation: float 20s infinite linear;
-        }
-        
-        .bg-circle:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 5%;
-            animation-duration: 25s;
-        }
-        
-        .bg-circle:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            top: 70%;
-            left: 80%;
-            animation-duration: 20s;
-            animation-delay: 5s;
-        }
-        
-        .bg-circle:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            top: 40%;
-            left: 70%;
-            animation-duration: 30s;
-            animation-delay: 10s;
-        }
-
-        .moon-glow {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(147, 112, 219, 0.1) 0%, rgba(147, 112, 219, 0) 70%);
-            filter: blur(20px);
-            z-index: -1;
-            animation: moonFloat 30s infinite alternate ease-in-out;
-        }
-
-        .moon-glow:nth-child(1) {
-            top: 10%;
-            right: 10%;
-        }
-
-        .moon-glow:nth-child(2) {
-            bottom: 15%;
-            left: 5%;
-            animation-delay: 5s;
-            width: 200px;
-            height: 200px;
-        }
-
-        .shadow-tear {
-            position: fixed;
-            width: 100px;
-            height: 150px;
-            background: linear-gradient(45deg, transparent 30%, rgba(106, 13, 173, 0.1) 50%, transparent 70%);
-            z-index: -1;
-            filter: blur(5px);
-            animation: shadowDrift 40s infinite linear;
-        }
-
-        .shadow-tear:nth-child(1) {
-            top: 20%;
-            left: 15%;
-            animation-delay: 0s;
-        }
-
-        .shadow-tear:nth-child(2) {
-            top: 60%;
-            right: 20%;
-            animation-delay: 10s;
-        }
-
-        .shadow-tear:nth-child(3) {
-            bottom: 30%;
-            left: 25%;
-            animation-delay: 20s;
-        }
-
-        @keyframes shadowDrift {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
-            25% { transform: translate(50px, 30px) rotate(90deg); opacity: 0.5; }
-            50% { transform: translate(100px, 10px) rotate(180deg); opacity: 0.2; }
-            75% { transform: translate(30px, 80px) rotate(270deg); opacity: 0.4; }
-            100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
-        }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
-            25% { transform: translate(20px, 30px) rotate(90deg); opacity: 0.5; }
-            50% { transform: translate(40px, 10px) rotate(180deg); opacity: 0.2; }
-            75% { transform: translate(10px, 40px) rotate(270deg); opacity: 0.4; }
-            100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
-        }
-
-        @keyframes moonFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 20px) scale(1.1); }
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
-        }
-
+        /* ФОН С ВАШИМ ИЗОБРАЖЕНИЕМ */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--deep-blue) 100%);
+            background: url('https://i.pinimg.com/originals/85/64/c1/8564c1612fabf10318920ffd14ade44e.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: var(--white);
             min-height: 100vh;
             line-height: 1.6;
             position: relative;
             overflow-x: hidden;
         }
-        
+
+        /* Затемнение фона для лучшей читаемости */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -354,6 +246,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
         }
 
         /* Герой секция */
@@ -1093,95 +990,6 @@
             margin-bottom: 10px;
         }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .dark-sidebar {
-                width: 60px;
-            }
-            
-            .dark-sidebar:hover {
-                width: 200px;
-            }
-            
-            .main-content {
-                margin-left: 60px;
-            }
-            
-            .dark-sidebar:hover ~ .main-content {
-                margin-left: 200px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .rules-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .members-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
-            }
-            
-            .feature-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 1.8em;
-            }
-            
-            .symbol-container {
-                padding: 30px 20px;
-            }
-            
-            .symbol-icon {
-                font-size: 3em;
-            }
-            
-            .section-title {
-                font-size: 2em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .dark-sidebar {
-                width: 50px;
-            }
-            
-            .dark-sidebar:hover {
-                width: 180px;
-            }
-            
-            .main-content {
-                margin-left: 50px;
-            }
-            
-            .hero {
-                padding: 60px 0 40px;
-            }
-            
-            .hero h1 {
-                font-size: 2em;
-            }
-            
-            .member-card {
-                padding: 25px 20px;
-            }
-            
-            .symbol-container {
-                padding: 25px 15px;
-            }
-        }
-
-        /* УЛУЧШЕННЫЕ ХЭЛЛОУИНСКИЕ ЭЛЕМЕНТЫ */
-
         /* Хэллоуинские украшения */
         .halloween-decoration {
             position: fixed;
@@ -1635,8 +1443,62 @@
             100% { box-shadow: 0 0 15px rgba(255, 117, 24, 0.8); }
         }
         
-        /* Адаптивность для хэллоуинских элементов */
+        /* Адаптивность */
         @media (max-width: 768px) {
+            .dark-sidebar {
+                width: 60px;
+            }
+            
+            .dark-sidebar:hover {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+            
+            .dark-sidebar:hover ~ .main-content {
+                margin-left: 200px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8em;
+            }
+            
+            .symbol-container {
+                padding: 30px 20px;
+            }
+            
+            .symbol-icon {
+                font-size: 3em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+            
             .pumpkin, .ghost, .cobweb, .bat {
                 transform: scale(0.7);
             }
@@ -1651,6 +1513,34 @@
         }
         
         @media (max-width: 480px) {
+            .dark-sidebar {
+                width: 50px;
+            }
+            
+            .dark-sidebar:hover {
+                width: 180px;
+            }
+            
+            .main-content {
+                margin-left: 50px;
+            }
+            
+            .hero {
+                padding: 60px 0 40px;
+            }
+            
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .member-card {
+                padding: 25px 20px;
+            }
+            
+            .symbol-container {
+                padding: 25px 15px;
+            }
+            
             .pumpkin, .ghost, .cobweb, .bat {
                 transform: scale(0.5);
             }
@@ -1672,18 +1562,6 @@
 <body>
     <!-- WebGL Canvas -->
     <canvas id="webgl-canvas"></canvas>
-    
-    <!-- Анимированный фон -->
-    <div class="bg-animation">
-        <div class="bg-circle"></div>
-        <div class="bg-circle"></div>
-        <div class="bg-circle"></div>
-        <div class="moon-glow"></div>
-        <div class="moon-glow"></div>
-        <div class="shadow-tear"></div>
-        <div class="shadow-tear"></div>
-        <div class="shadow-tear"></div>
-    </div>
     
     <!-- УЛУЧШЕННЫЕ ХЭЛЛОУИНСКИЕ ЭЛЕМЕНТЫ -->
     <div class="halloween-decoration">
@@ -1813,6 +1691,7 @@
                 <!-- ХЭЛЛОУИНСКИЙ БАННЕР -->
                 <div class="halloween-banner">
                     <h2>🎃 Хэллоуин в Отряде Мрак 🎃</h2>
+                    <p>Тайны тьмы оживают в эту ночь ужасов и мистики!</p>
                 </div>
                 
                 <section class="hero">
@@ -2543,6 +2422,3 @@
     </script>
 </body>
 </html>
-
-
-
